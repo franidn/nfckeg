@@ -5,8 +5,3 @@ class Notification(object):
 
     def notify(self, string):
         pass
-
-class MockNotification(Notification):
-
-        def notify(self, string):
-            print("*****"+string+"*****")
