@@ -19,7 +19,6 @@ class nfckeg(object):
     # Carguem els setups del flowsensor i del lector rfid
     def setup(self):
         self.flow_sensor.setup()
-        self.writepre.setup()
         self.uidliters = [[0,0]]
         self.a = 0
 
@@ -41,7 +40,7 @@ class nfckeg(object):
         try:
             while True:
                 estat = self.get_state()
-                print ("El id: "+uidliters(1) "ha begut: "+uidliters(2))
+                print ("El id: "+uidliters[1]+ "ha begut: "+uidliters[2])
         except KeyboardInterrupt:
             print '\ncaught keyboard interrupt!, bye'
             GPIO.cleanup()
@@ -49,5 +48,5 @@ class nfckeg(object):
 
 
 if __name__ == "__main__":
-    sensor = Sensor()
+    sensor = Sensor("eeeeeee")
     sensor.main()
