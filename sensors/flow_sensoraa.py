@@ -7,7 +7,6 @@ import time, sys
 from main import Sensor
 
 class flowsensor(Sensor):
-
     def __init__(self,name):
         super(flowsensor, self).__init__(name)
 #Defenim pin BCM17 per conectar el sensor de flux
@@ -17,6 +16,7 @@ class flowsensor(Sensor):
         GPIO.add_event_detect(FLOW_SENSOR, GPIO.RISING, callback=self.countPulse)
 #Varialble global per contar voltes del sensor de flux
         self.count = 0
+
 
 #Funcio que llegeig les voltes del pin 17 i les transforma a litres
     def countPulse(self, channel):
@@ -28,13 +28,12 @@ class flowsensor(Sensor):
        print actual_liters
        return actual_liters
 
-#Funcio que s'executa al iniciar i conte un bucle que mostra el valor del litres
+    #bucle que mante en espera perque conti fins que ho interrumpim amb CTRL+C
 
 if __name__ == "__main__":
     s = flowsensor("eeee")
     while True:
         try:
-            time.sleep(1)
             s.getliters()
         except KeyboardInterrupt:
             print '\ncaught keyboard interrupt!, bye'

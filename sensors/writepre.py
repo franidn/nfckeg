@@ -3,47 +3,48 @@
 
 import RPi.GPIO as GPIO
 import MFRC522
+from main import Sensor
+import time
 
-continue_reading = True
+class rfid(Sensor):
+    def __init__(self,name):
+        super(rfid, self).__init__(name)
+        #Create an object with MFRC522 properties
+        self.MIFAREReader = MFRC522.MFRC522()
 
-# Capture SIGINT for cleanup when the script is aborted
-def end_read(signal,frame):
-    global continue_reading
-    print "Ctrl+C captured, ending read."
-    continue_reading = False
-    GPIO.cleanup()
+    #This function capture ID of card
+    def get_uid(self):
+        # Scan for cards
+        (status,TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
+        # If a card is found
+        if status == self.MIFAREReader.MI_OK:
+            print "Card detected"
 
+        # Get the UID of the card
+        (status,uid) = self.MIFAREReader.MFRC522_Anticoll()
 
+        # If we have the UID, continue
+        if status == self.MIFAREReader.MI_OK:
 
-# Create an object of the class MFRC522
-MIFAREReader = MFRC522.MFRC522()
+            # Print UID
+            print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
 
-#	 This loop keeps checking for chips. If one is near it will get the UID and authenticate
-while continue_reading:
+            # Select the scanned tag
+            self.MIFAREReader.MFRC522_SelectTag(uid)
+            return uid
+    #This function permits read data in card
+    def read_card(self, uid):
+        
+        data = self.MIFAREReader.MFRC522_Read(uid)
+        return data
 
-    # Scan for cards
-    (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-    # If a card is found
-    if status == MIFAREReader.MI_OK:
-        print "Card detected"
-
-    # Get the UID of the card
-    (status,uid) = MIFAREReader.MFRC522_Anticoll()
-
-    # If we have the UID, continue
-    if status == MIFAREReader.MI_OK:
-
-        # Print UID
-        print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
-
-        # This is the default key for authentication
-        key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-
-        # Select the scanned tag
-        MIFAREReader.MFRC522_SelectTag(uid)
-
-        # Stop
-        MIFAREReader.MFRC522_StopCrypto1()
-
-        # Make sure to stop reading for cards
-        continue_reading = False
+    #This function permits write info at card
+    def write_card(self, uid, data):
+                
+        self.MIFAREReader.MFRC522_Write(uid, data)
+        
+if __name__ == "__main__":
+        while True:
+            a = rfid("eee")
+            uid = a.get_uid()
+            time.sleep(1)
