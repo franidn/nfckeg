@@ -9,6 +9,8 @@ import time
 class rfid(Sensor):
     def __init__(self,name):
         super(rfid, self).__init__(name)
+
+    def setup(self):
         #Create an object with MFRC522 properties
         self.MIFAREReader = MFRC522.MFRC522()
 
@@ -34,15 +36,15 @@ class rfid(Sensor):
             return uid
     #This function permits read data in card
     def read_card(self, uid):
-        
+
         data = self.MIFAREReader.MFRC522_Read(uid)
         return data
 
     #This function permits write info at card
     def write_card(self, uid, data):
-                
+
         self.MIFAREReader.MFRC522_Write(uid, data)
-        
+
 if __name__ == "__main__":
         while True:
             a = rfid("eee")
