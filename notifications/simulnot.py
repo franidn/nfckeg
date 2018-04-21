@@ -1,4 +1,5 @@
 from main import Notification
+import time
 
 class MockNotification(Notification):
 
@@ -9,10 +10,7 @@ class MockNotification(Notification):
             print("*****"+string+"*****")
 
 if __name__ == "__main__":
-    notify.message = self.message
+    message = MockNotification()
     while True:
-        try:
-            self.mesage = "hola"
-            time.sleep(1)
-        except KeyboardInterrupt:
-            print '\ncaught keyboard interrupt!, bye'
+        message.notify ("hola")
+        time.sleep(1)
