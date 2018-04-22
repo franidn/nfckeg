@@ -20,20 +20,18 @@ class nfckeg(object):
     def setup(self):
         self.flow_sensor.setup()
         self.uidliters = [[0,0]]
-        self.a = 0
 
     #Actualitzem els valors dels sensors i els afegim a la ultima posicio d'una matriu
     def get_state(self):
-        self.a = 1
-        while a == 1:
-            uid = writepre.get_uid
+        while True:
+            uid = self.writepre.get_uid
             time.sleep(1)
             if uid is not None:
                 litres = flow_sensor.getacumulateliters()
                 self.uidliters = append(self.uidliters["uid",litres])
                 time.sleep(1)
+                
                 return uidliters
-                a = 0
 
     #Funcio principal que ens printa el id i els litres beguts
     def main(self):
@@ -48,5 +46,5 @@ class nfckeg(object):
 
 
 if __name__ == "__main__":
-    sensor = Sensor("eeeeeee")
+    sensor = nfckeg()
     sensor.main()
