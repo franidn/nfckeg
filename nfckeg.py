@@ -9,12 +9,9 @@ class nfckeg(object):
         super(nfckeg, self).__init__()
         self.my_sensors_names = ["flowsensor", "nfcsensor"]
 
-        #FALTA MERDA QUE NO ENTENC
-
-
     def create_sensors(self):
-        sensor.flow_sensor(self.my_sensors_names(1))
-        sensor.writepre(self.my_sensors_names(2))
+        sensors.flow_sensor(self.my_sensors_names[1])
+        sensors.writepre(self.my_sensors_names[2])
 
     # Carguem els setups del flowsensor i del lector rfid
     def setup(self):
@@ -24,7 +21,7 @@ class nfckeg(object):
     #Actualitzem els valors dels sensors i els afegim a la ultima posicio d'una matriu
     def get_state(self):
         while True:
-            uid = self.writepre.get_uid
+            uid = self.sensors.writepre.get_uid()
             time.sleep(1)
             if uid is not None:
                 litres = flow_sensor.getacumulateliters()
