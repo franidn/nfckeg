@@ -31,7 +31,8 @@ class rfid(Sensor):
 
             # Select the scanned tag
             self.MIFAREReader.MFRC522_SelectTag(uid)
-            return uid
+            uidstring = str(uid[0])+str(uid[1])+str(uid[2])+str(uid[3])
+            return uidstring
     #This function permits read data in card
     def read_card(self, uid):
 
