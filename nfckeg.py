@@ -9,6 +9,7 @@ class nfckeg(object):
         super(nfckeg, self).__init__()
         self.my_sensors_names = ["flowsensor", "nfcsensor"]
         self.uidlitres = {}
+        global info
 
     def create_sensors(self):
         self.flow_sensor = sensors.flow_sensor.flowsensor(self.my_sensors_names[0])
@@ -30,7 +31,7 @@ class nfckeg(object):
                     info = ('{}:{}'.format(uid, self.litres))
                 time.sleep(1)
 
-            return info
+            
 
     #Funcio principal que ens printa el id i els litres beguts
     def main(self):
