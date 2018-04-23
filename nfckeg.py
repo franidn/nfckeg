@@ -56,4 +56,4 @@ if __name__ == "__main__":
     sensor = nfckeg()
     sensor.create_sensors()
     sensor.setup()
-    sensor.main()
+    sensor.get_state()
